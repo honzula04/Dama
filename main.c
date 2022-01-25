@@ -51,7 +51,7 @@ int main()
 }
 
 int check(int pole[][S], int *itah){
-	int preskok;
+	int p=0;
 	
 	if(sqrt(2)!=sqrt((pow(itah[3]-itah[1],2)+pow(itah[0]-itah[2],2)))&&sqrt(8)!=sqrt((pow(itah[3]-itah[1],2)+pow(itah[0]-itah[2],2)))) //vypocet velikosti vektoru. to jste neèekali co ? :D
 		return 1;
@@ -66,16 +66,18 @@ int check(int pole[][S], int *itah){
 			if(pole[x+2][y+(-2)]==0||pole[x-2][y+(-2)]==0)
 				if(t==1)
 					if(pole[x+1][y+(-1)]==2||pole[x-1][y+(-1)]==2)
-						
+						p=1;	
 				else 
-					if(pole[x+1][y+(-1)]==1||pole[x-1][y+(-1)]==1)	
+					if(pole[x+1][y+(-1)]==1||pole[x-1][y+(-1)]==1)
+						p=1;
 		}
 	}
 }
 void prepnitah(){
-	case(t)
-	case 1: t==2; break;
-	case 2: t==1; break;
+	switch(t){		
+		case 1: t==2; break;
+		case 2: t==1; break;
+	}
 }
 void presun(int pole[][S], int *itah){
 	pole[itah[3]][itah[2]]= pole[itah[1]][itah[0]];
