@@ -16,29 +16,36 @@ void prepnitah();
 
 int main()
 {
-	char ctah[5];
+	char ctah[5],c;
 	int pole[][S] = { //1 - Bile, 2 - Cerne
-	{0,1,0,1,0,1,0,1,},	
-	{1,0,1,0,1,0,1,0,},	
-	{0,1,0,1,0,1,0,1,},
-	{0,0,0,0,0,0,0,0,},
-	{0,0,0,0,0,0,0,0,},
-	{2,0,2,0,2,0,2,0,},
+	{0,2,0,2,0,2,0,2,},	
+	{2,0,2,0,2,0,2,0,},	
 	{0,2,0,2,0,2,0,2,},
-	{2,0,2,0,2,0,2,0,},
+	{0,0,0,0,0,0,0,0,},
+	{0,0,0,0,0,0,0,0,},
+	{1,0,1,0,1,0,1,0,},
+	{0,1,0,1,0,1,0,1,},
+	{1,0,1,0,1,0,1,0,},
 	},
 	itah[4];
 	
 	do
-	{
+	{	
 		print(pole);
-		printf("Zadejte tah: ");
-		gets(ctah);
-		getadress(ctah,itah);
-		if(check(pole,itah)==1)
-			printf("Neplatny tah");
-		for(i=0;i<4;i++)		
-			printf("%d\n",itah[i]);
+		
+		do{
+			printf("Zadejte tah: ");
+			gets(ctah);
+			getadress(ctah,itah);
+			c=check(pole,itah);
+			if(c==1)
+			printf("Neplatny tah\n");
+			
+			for(i=0;i<4;i++)		
+				printf("%d\n",itah[i]);
+				
+		}while(c==1);
+		
 		presun(pole,itah); 
 		prepnitah();
 		system("pause");
@@ -51,30 +58,58 @@ int main()
 }
 
 int check(int pole[][S], int *itah){
-	int p=0;
+	int p=0,pp=0;
 	
-	if(sqrt(2)!=sqrt((pow(itah[3]-itah[1],2)+pow(itah[0]-itah[2],2)))&&sqrt(8)!=sqrt((pow(itah[3]-itah[1],2)+pow(itah[0]-itah[2],2)))) //vypocet velikosti vektoru. to jste neèekali co ? :D
+	if(2!=pow(itah[2]-itah[0],2)+pow(itah[3]-itah[1],2) && 8!=pow(itah[3]-itah[1],2)+pow(itah[2]-itah[0],2)) //vypocet velikosti vektoru. to jste necekali co ? :D
+	{
+		printf("ERROR1\n");
 		return 1;
-	else
-		if(t=2){
-			if(itah[3]>=itah[1])
+		
+	}		
+	else{
+		if(t==1){
+			if(itah[3]>=itah[1]){
+				printf("ERROR2\n");
 				return 1;
+			}				
 		}			
 		else{
-			if(itah[3]<=itah[1])
+			if(itah[3]<=itah[1]){
+				printf("ERROR3\n");
 				return 1;
-		}
+			}				
+		}		
+	}
+
 	for(x=0;x<S;x++){
 		for(y=0;y<S;y++){
-			if(pole[x+2][y+(-2)]==0||pole[x-2][y+(-2)]==0)
-				if(t==1)
-					if(pole[x+1][y+(-1)]==2||pole[x-1][y+(-1)]==2)
-						p=1;	
-				else 
-					if(pole[x+1][y+(-1)]==1||pole[x-1][y+(-1)]==1)
-						p=1;
+			if(t==1){
+				if((pole[x+1][y-1]==2 && pole[x+2][y-2]==0 && pole[x][y]==1) || (pole[x-1][y-1]==2 && pole[x-2][y-2]==0 && pole[x][y]==1)){
+					p=1;
+					printf("ERROR4.1.1 x:%d y:%d\n",x,y);
+				}					
+			}					
+			else{
+				if((pole[x+1][y+1]==1 && pole[x+2][y+2]==0 && pole[x][y]==2) || (pole[x-1][y+1]==1 && pole[x-2][y+2]==0 && pole[x][y]==2)){
+					p=1;
+					printf("ERROR4.1.2 x:%d y:%d\n",x,y);
+				}		
+			}	
+			if(p==1){
+				if(8==(pow(itah[3]-itah[1],2)+pow(itah[2]-itah[0],2))){
+					if(x==itah[0] || y==itah[1]){
+						pp=1;
+					}	
+				} 
+			}
 		}
 	}
+	if(pp!=p){
+		printf("ERROR4\n");	
+		return 1;	
+	}
+	
+	return 0;		
 }
 void prepnitah(){
 	switch(t){		
